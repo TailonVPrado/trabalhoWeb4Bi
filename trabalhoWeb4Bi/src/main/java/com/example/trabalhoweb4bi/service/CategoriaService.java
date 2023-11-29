@@ -15,13 +15,13 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
     public List<Categoria> listAll(){
-        return categoriaRepository.findAll();
+        return categoriaRepository.findAllByAtivoIsTrueOrderByIdAsc();
     }
     public List<Categoria> listByFilter(String descricao) {
         if (descricao.isEmpty()) {
-            return categoriaRepository.findAllByOrderByIdAsc();
+            return categoriaRepository.findAllByAtivoIsTrueOrderByIdAsc();
         } else {
-            return categoriaRepository.findAllByDescricaoContainingIgnoreCaseOrderByIdAsc(descricao);
+            return categoriaRepository.findAllByDescricaoContainingIgnoreCaseAndAtivoIsTrueOrderByIdAsc(descricao);
         }
     }
 
@@ -49,6 +49,8 @@ public class CategoriaService {
     }
 
     public void delete(Long id) {
-        categoriaRepository.deleteById(id);
+        Categoria categoria = findById(id);
+        categoria.setAtivo(false);
+        categoriaRepository.saveAndFlush(categoria);
     }
 }

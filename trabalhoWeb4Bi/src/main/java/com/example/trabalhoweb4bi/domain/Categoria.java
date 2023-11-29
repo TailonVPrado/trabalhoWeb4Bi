@@ -12,10 +12,13 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String descricao;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoConta tipoConta;
+
+    @Column(nullable = false)
+    private boolean ativo = true;
 }

@@ -14,13 +14,17 @@ public class ContasPagRec {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String descricao;
 
     @CreationTimestamp
-    @Column
+    @Column(nullable = false)
     private Date dataLcto;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Categoria categoria;
+
+    @Column(nullable = false)
+    private boolean ativo = true;
 }

@@ -66,9 +66,10 @@
                         </thead>
                         <tbody>
                         <tr th:each="categoria : ${categorias}">
-                            <th th:text="${categoria.id}" scope="row">1</th>
-                            <td th:text="${categoria.descricao}">Mark</td>
-                            <td th:text="${categoria.tipoConta}">Mark</td>
+                            <th th:text="${categoria.id}" scope="row">id</th>
+                            <td th:text="${categoria.descricao}">descrição</td>
+                            <td th:text="${categoria.tipoConta}"
+                                th:style="${#strings.trim(categoria.tipoConta)} == 'DESPESA' ? 'color: red; font-weight: bold;' : 'color: green; font-weight: bold;'">tipo</td>
                             <td>
                                 <a  class="btn btn-primary" th:href="@{'categoria/editar/'+${categoria.id}}" >Editar</a>
                             </td>
