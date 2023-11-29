@@ -35,5 +35,59 @@
             </div>
         </nav>
     </header>
+    <h1>Listagem de Categorias</h1>
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <form action="/categoria/filtrar" method="GET">
+                        <div class="mb-3">
+                            <label for="descricao" class="form-label">Pesquisar por descrição:</label>
+                            <input id="descricao"
+                                   type="text"
+                                   class="form-control mb-3"
+                                   name="descricao">
+                            <button type="submit" class="btn btn-primary">Pesquisar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Descrição da Categoria</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="categoria : ${categorias}">
+                            <th th:text="${categoria.id}" scope="row">1</th>
+                            <td th:text="${categoria.descricao}">Mark</td>
+                            <td th:text="${categoria.tipoConta}">Mark</td>
+                            <td>
+                                <a  class="btn btn-primary" th:href="@{'categoria/editar/'+${categoria.id}}" >Editar</a>
+                            </td>
+                            <td>
+                                <a  class="btn btn-danger" th:href="@{'categoria/remover/'+${categoria.id}}" >Deletar</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-12">
+                    <form action="/categoria/criar" method="GET">
+                        <button type="submit" class="btn btn-success mb-3">Cadastrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

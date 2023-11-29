@@ -16,5 +16,6 @@ public class Categoria {
     private String descricao;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private TipoConta tipoConta;
 }
