@@ -90,7 +90,8 @@
                                 <option th:each="categoria : ${categorias}"
                                         th:value="${categoria.id}"
                                         th:text="${categoria.descricao + ' - ' + categoria.tipoConta}"
-                                        th:if="${contasPagRec.categoria != null and categoria.id eq contasPagRec.categoria.id}" selected></option>
+                                        th:selected="${contasPagRec.categoria != null and categoria.id eq contasPagRec.categoria.id}">
+                                </option>
                             </select>
                         </div>
 

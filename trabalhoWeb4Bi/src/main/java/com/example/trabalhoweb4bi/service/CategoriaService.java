@@ -15,13 +15,13 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
     public List<Categoria> listAll(){
-        return categoriaRepository.findAllByAtivoIsTrueOrderByIdAsc();
+        return categoriaRepository.findAllByAtivoIsTrueOrderByIdDesc();
     }
     public List<Categoria> listByFilter(String descricao) {
         if (descricao.isEmpty()) {
-            return categoriaRepository.findAllByAtivoIsTrueOrderByIdAsc();
+            return categoriaRepository.findAllByAtivoIsTrueOrderByIdDesc();
         } else {
-            return categoriaRepository.findAllByDescricaoContainingIgnoreCaseAndAtivoIsTrueOrderByIdAsc(descricao);
+            return categoriaRepository.findAllByDescricaoContainingIgnoreCaseAndAtivoIsTrueOrderByIdDesc(descricao);
         }
     }
 

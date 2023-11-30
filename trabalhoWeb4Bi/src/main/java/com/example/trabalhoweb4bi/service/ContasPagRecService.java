@@ -23,7 +23,7 @@ public class ContasPagRecService {
     private ContasPagRecRepository contasPagRecRepository;
 
     public List<ContasPagRec> listAll(){
-        return contasPagRecRepository.findAllByAtivoIsTrueOrderByIdAsc();
+        return contasPagRecRepository.findAllByAtivoIsTrueOrderByIdDesc();
     }
 
     public List<ContasPagRec> listByFilter(String descricao, String dataLcto) {
@@ -33,16 +33,16 @@ public class ContasPagRecService {
         }
 
         if (descricao.isEmpty() && dataLcto.isEmpty()) {
-            return contasPagRecRepository.findAllByAtivoIsTrueOrderByIdAsc();
+            return contasPagRecRepository.findAllByAtivoIsTrueOrderByIdDesc();
 
         }else if(!descricao.isEmpty() && dataLcto.isEmpty()){
-            return contasPagRecRepository.findALlByDescricaoContainsIgnoreCaseAndAtivoIsTrueOrderByIdAsc(descricao);
+            return contasPagRecRepository.findALlByDescricaoContainsIgnoreCaseAndAtivoIsTrueOrderByIdDesc(descricao);
 
         }else if(descricao.isEmpty() && !dataLcto.isEmpty()){
-            return contasPagRecRepository.findALlByDataLctoAndAtivoIsTrueOrderByIdAsc(dataFormatada);
+            return contasPagRecRepository.findALlByDataLctoAndAtivoIsTrueOrderByIdDesc(dataFormatada);
 
         }else {
-            return contasPagRecRepository.findALlByDescricaoContainsIgnoreCaseAndDataLctoAndAtivoIsTrueOrderByIdAsc(descricao, dataFormatada);
+            return contasPagRecRepository.findALlByDescricaoContainsIgnoreCaseAndDataLctoAndAtivoIsTrueOrderByIdDesc(descricao, dataFormatada);
         }
     }
 
@@ -82,7 +82,7 @@ public class ContasPagRecService {
     }
 
     public void insert(ContasPagRec contasPagRec){
-        if(contasPagRec.getId() > 0){
+        if(contasPagRec.getId() != null){
             //gambiarra para nao quebrar o update setando a dataLcto para null em update
             contasPagRec.setDataLcto(findById(contasPagRec.getId()).getDataLcto());
         }
@@ -102,6 +102,10 @@ public class ContasPagRecService {
 
     public BigDecimal retornaSomaContas(TipoConta tipoConta){
         return contasPagRecRepository.retornaSomaContas(tipoConta.toString());
+    }
+
+    public List<ContasPagRec> retornaUltimas10ContasLancadas(){
+        return contasPagRecRepository.findTop10ByAtivoIsTrueOrderByIdDesc();
     }
 
 }

@@ -64,7 +64,42 @@
             </div>
         </div>
     </main>
-    <hr>
-    <h3>Ultimos 10 Lançamentos</h3>
+    <hr><br>
+    <div class="row text-center">
+        <div class="col-12">
+            <h2>Ultimos 10 Lançamentos</h2>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Categoria</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Data Lcto</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="contasPagRec : ${ultimas10ContasLancadas}">
+                    <th th:text="${contasPagRec.id}" scope="row">id</th>
+                    <td th:text="${contasPagRec.descricao}">descricao da conta</td>
+                    <td th:text="'R$'+${contasPagRec.valor}"
+                        th:style="${#strings.trim(contasPagRec.categoria.tipoConta)} == 'DESPESA' ? 'color: red; font-weight: bold;' : 'color: green; font-weight: bold;'"
+                    >valor</td>
+                    <td th:text="${contasPagRec.categoria.descricao}">Descrição da categoria</td>
+                    <td th:text="${contasPagRec.categoria.tipoConta}"
+                        th:style="${#strings.trim(contasPagRec.categoria.tipoConta)} == 'DESPESA' ? 'color: red; font-weight: bold;' : 'color: green; font-weight: bold;'"
+                    ></td>
+                    <td th:text="${#dates.format(contasPagRec.dataLcto, 'dd/MM/yyyy')}">Data Lançamento</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 </html>

@@ -16,15 +16,15 @@ import java.util.List;
 @Repository
 public interface ContasPagRecRepository extends JpaRepository<ContasPagRec, Long> {
     @Query
-    public List<ContasPagRec> findAllByAtivoIsTrueOrderByIdAsc();
+    public List<ContasPagRec> findAllByAtivoIsTrueOrderByIdDesc();
 
     @Query
-    public  List<ContasPagRec> findALlByDescricaoContainsIgnoreCaseAndAtivoIsTrueOrderByIdAsc(String descricao);
+    public  List<ContasPagRec> findALlByDescricaoContainsIgnoreCaseAndAtivoIsTrueOrderByIdDesc(String descricao);
 
 
     @Query
-    public  List<ContasPagRec> findALlByDataLctoAndAtivoIsTrueOrderByIdAsc(Date dataLcto);
-    public  List<ContasPagRec> findALlByDescricaoContainsIgnoreCaseAndDataLctoAndAtivoIsTrueOrderByIdAsc(String descricao, Date dataLcto);
+    public  List<ContasPagRec> findALlByDataLctoAndAtivoIsTrueOrderByIdDesc(Date dataLcto);
+    public  List<ContasPagRec> findALlByDescricaoContainsIgnoreCaseAndDataLctoAndAtivoIsTrueOrderByIdDesc(String descricao, Date dataLcto);
 
     @Query(value = "SELECT SUM(CONTASPAGREC.VALOR) \n" +
                    "  FROM CONTASPAGREC,\n" +
@@ -34,4 +34,6 @@ public interface ContasPagRecRepository extends JpaRepository<ContasPagRec, Long
                    "   AND CATEGORIA.TIPO_CONTA = :tipoConta",
     nativeQuery = true)
     BigDecimal retornaSomaContas(@Param("tipoConta") String tipoConta);
+
+    List<ContasPagRec> findTop10ByAtivoIsTrueOrderByIdDesc();
 }

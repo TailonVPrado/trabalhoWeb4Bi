@@ -20,6 +20,7 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("totalDespesa", contasPagRecService.retornaSomaContas(TipoConta.DESPESA));
         modelAndView.addObject("totalReceita", contasPagRecService.retornaSomaContas(TipoConta.RECEITA));
+        modelAndView.addObject("ultimas10ContasLancadas", contasPagRecService.retornaUltimas10ContasLancadas());
 
         return modelAndView;
     }

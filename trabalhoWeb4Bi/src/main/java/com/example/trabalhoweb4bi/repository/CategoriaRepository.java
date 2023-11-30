@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     @Query
-    public List<Categoria> findAllByDescricaoContainingIgnoreCaseAndAtivoIsTrueOrderByIdAsc(String descricao);
+    public List<Categoria> findAllByDescricaoContainingIgnoreCaseAndAtivoIsTrueOrderByIdDesc(String descricao);
     @Query
-    public List<Categoria> findAllByAtivoIsTrueOrderByIdAsc();
+    public List<Categoria> findAllByAtivoIsTrueOrderByIdDesc();
 }
