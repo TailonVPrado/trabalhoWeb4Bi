@@ -36,5 +36,35 @@
             </div>
           </nav>
     </header>
+    <main>
+        <div class="container mt-3">
+            <div class="row justify-content-center text-center">
+                <div class="col-8 mx-2">
+                    <label for="liquido"
+                           th:class="${totalReceita - totalDespesa < 0} ? 'text-danger form-label fs-2 fw-bold' : 'text-success form-label fs-2 fw-bold'"
+                    >LÍQUIDO</label>
+                    <h1 id="liquido"
+                        th:text="${totalReceita - totalDespesa < 0} ? '- R$' + (${totalReceita - totalDespesa} * -1) : '+R$' + ${totalReceita - totalDespesa}"
+                        th:class="${totalReceita - totalDespesa < 0} ? 'text-bg-danger rounded border-primary text-dark' : 'text-bg-success rounded border-primary text-dark'">
+                    </h1>
+                </div>
+            </div>
+            <br>
+            <div class="row justify-content-center text-center">
+                <div class="col-5 mx-2">
+                    <label for="receita" class="form-label fs-2 text-primary fw-bold">RECEITAS</label>
+                    <h1 id="receita" class="text-bg-primary rounded border-primary text-dark "
+                        th:text="'+ R$' + ${totalReceita}"></h1>
+                </div>
+                <div class="col-5 mx-2">
+                    <label for="despesa" class="form-label fs-2 text-warning fw-bold">DESPESAS</label>
+                    <h1 id="despesa" class="text-bg-warning rounded border-warning"
+                        th:text="'- R$' + ${totalDespesa}">Despesas</h1>
+                </div>
+            </div>
+        </div>
+    </main>
+    <hr>
+    <h3>Ultimos 10 Lançamentos</h3>
 </body>
 </html>

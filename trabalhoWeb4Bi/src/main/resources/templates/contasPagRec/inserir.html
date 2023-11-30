@@ -37,6 +37,8 @@
             </div>
         </nav>
     </header>
+    <h1 th:text="(${contasPagRec.id} ? 'Edição' : 'Cadastro') + ' de Receita / Despesa'"></h1>
+    <hr>
     <main>
         <div class="container">
             <div class="row" th:if="${not #lists.isEmpty(msg)}">
@@ -50,13 +52,13 @@
                 <div class="col-6">
                     <form  class="card-body" method="POST" action="/contasPagRec" th:object="${contasPagRec}">
                         <div class="mb-3">
-                            <label for="id" class="form-label">Código</label>
                             <input id="id"
                                    type="text"
                                    readonly
                                    class="form-control-plaintext"
                                    name="id"
-                                   th:value="${contasPagRec.id}">
+                                   th:value="${contasPagRec.id}"
+                                   style="display: none;">
                         </div>
 
                         <div class="mb-3">

@@ -35,7 +35,8 @@
             </div>
         </nav>
     </header>
-    <h1>Cadastro de Categorias</h1>
+    <h1 th:text="(${categoria.id} ? 'Edição' : 'Cadastro') + ' de Categoria'"></h1>
+    <hr>
     <main>
         <div class="container">
             <div class="row" th:if="${not #lists.isEmpty(msg)}">
@@ -53,12 +54,12 @@
                            action="/categoria"
                            th:object="${categoria}">
                         <div class="mb-3">
-                            <label for="id" class="form-label">Código</label>
                             <input id="id"
                                    type="text"
                                    readonly
                                    class="form-control-plaintext"
                                    name="id"
+                                   style="display: none;"
                                    th:value="${categoria.id}">
                         </div>
 

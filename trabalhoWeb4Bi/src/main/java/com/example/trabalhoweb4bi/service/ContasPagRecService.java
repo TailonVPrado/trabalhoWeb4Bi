@@ -2,6 +2,7 @@ package com.example.trabalhoweb4bi.service;
 
 import com.example.trabalhoweb4bi.domain.Categoria;
 import com.example.trabalhoweb4bi.domain.ContasPagRec;
+import com.example.trabalhoweb4bi.enums.TipoConta;
 import com.example.trabalhoweb4bi.repository.ContasPagRecRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -97,6 +98,10 @@ public class ContasPagRecService {
         ContasPagRec contasPagRec = findById(id);
         contasPagRec.setAtivo(false);
         contasPagRecRepository.saveAndFlush(contasPagRec);
+    }
+
+    public BigDecimal retornaSomaContas(TipoConta tipoConta){
+        return contasPagRecRepository.retornaSomaContas(tipoConta.toString());
     }
 
 }
