@@ -30,7 +30,7 @@ public class CategoriaController {
         if (model.containsAttribute("categorias"))
             modelAndView.addObject("categorias", model.getAttribute("categorias"));
         else {
-            modelAndView.addObject("categoria", categoriaService.listAll());
+            modelAndView.addObject("categorias", categoriaService.listAll());
         }
 
         return modelAndView;
@@ -74,7 +74,7 @@ public class CategoriaController {
     }
 
     @GetMapping(path = "/criar")
-    public ModelAndView retornaNovaDisciplina(ModelMap model){
+    public ModelAndView retornaNovaCategoria(ModelMap model){
         ModelAndView modelAndView = new ModelAndView("categoria/inserir");
 
         if (model.containsAttribute("categoria")) {

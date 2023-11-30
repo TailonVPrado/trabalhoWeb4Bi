@@ -29,11 +29,14 @@ public class CategoriaService {
         List<String> msg = new ArrayList<>();
         String regex = "^[a-zA-Z0-9]*$";
 
-        if(!Pattern.matches(regex, categoria.getDescricao())){
+        if(!Pattern.matches(regex, categoria.getDescricao().replace(" ", ""))){
             msg.add("A descrição deve conter apenas caracteres alfanumericos.");
         }
         if(categoria.getTipoConta() == null){
             msg.add("O tipo da categória precisa ser informado.");
+        }
+        if(categoria.getDescricao().trim().length() < 5 || categoria.getDescricao().trim().length() > 60){
+            msg.add("O tamanho da descrição deve estar entre 5 e 60 caracteres");
         }
 
         return msg;
@@ -53,4 +56,5 @@ public class CategoriaService {
         categoria.setAtivo(false);
         categoriaRepository.saveAndFlush(categoria);
     }
+
 }

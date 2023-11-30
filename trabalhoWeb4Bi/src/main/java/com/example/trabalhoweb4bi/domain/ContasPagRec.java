@@ -1,9 +1,14 @@
 package com.example.trabalhoweb4bi.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
@@ -22,9 +27,14 @@ public class ContasPagRec {
     private Date dataLcto;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, updatable = false)
     private Categoria categoria;
 
     @Column(nullable = false)
     private boolean ativo = true;
+
+    @DecimalMin(value = "0.01", message = "O valor deve ser maior que zero")
+    @Column(nullable = false, columnDefinition = "numeric(10,2)")
+    private BigDecimal valor;
+
 }
