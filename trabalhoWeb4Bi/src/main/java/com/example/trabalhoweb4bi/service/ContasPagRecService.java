@@ -1,10 +1,13 @@
 package com.example.trabalhoweb4bi.service;
 
-import com.example.trabalhoweb4bi.domain.Categoria;
+import com.example.trabalhoweb4bi.Specification.CategoriaSpecification;
+import com.example.trabalhoweb4bi.Specification.ContasPagRecSpecification;
 import com.example.trabalhoweb4bi.domain.ContasPagRec;
 import com.example.trabalhoweb4bi.enums.TipoConta;
 import com.example.trabalhoweb4bi.repository.ContasPagRecRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -12,7 +15,6 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -26,24 +28,57 @@ public class ContasPagRecService {
         return contasPagRecRepository.findAllByAtivoIsTrueOrderByIdDesc();
     }
 
-    public List<ContasPagRec> listByFilter(String descricao, String dataLcto) {
+    public List<ContasPagRec> listByFilter(String descricao, String dataLcto, String tipoConta, Long idCategoria) {
+
         Date dataFormatada = null;
         if(!dataLcto.isEmpty()){
             dataFormatada = convertData(dataLcto);
         }
 
-        if (descricao.isEmpty() && dataLcto.isEmpty()) {
-            return contasPagRecRepository.findAllByAtivoIsTrueOrderByIdDesc();
+        Specification<ContasPagRec> spec = Specification.where(null);
 
-        }else if(!descricao.isEmpty() && dataLcto.isEmpty()){
-            return contasPagRecRepository.findALlByDescricaoContainsIgnoreCaseAndAtivoIsTrueOrderByIdDesc(descricao);
+        spec = spec.and(ContasPagRecSpecification.ativo());
 
-        }else if(descricao.isEmpty() && !dataLcto.isEmpty()){
-            return contasPagRecRepository.findALlByDataLctoAndAtivoIsTrueOrderByIdDesc(dataFormatada);
-
-        }else {
-            return contasPagRecRepository.findALlByDescricaoContainsIgnoreCaseAndDataLctoAndAtivoIsTrueOrderByIdDesc(descricao, dataFormatada);
+        //Descrição
+        if(!descricao.isEmpty()){
+            spec = spec.and(ContasPagRecSpecification.descricaoContains(descricao));
         }
+
+        //tipoConta
+        if(!tipoConta.isEmpty()){
+            spec = spec.and(ContasPagRecSpecification.tipoContaEquals(tipoConta));
+        }
+
+        //Data de lançamento
+        if(dataFormatada != null){
+            spec = spec.and(ContasPagRecSpecification.dataLctoEquals(dataFormatada));
+        }
+
+        //Categoria
+        if(idCategoria != 0){
+            spec = spec.and(ContasPagRecSpecification.pertenceACategoria(idCategoria));
+        }
+
+        return contasPagRecRepository.findAll(spec, Sort.by("id").descending());
+
+
+
+
+//
+//
+//        if (descricao.isEmpty() && dataLcto.isEmpty()) {
+//            return contasPagRecRepository.findAllByAtivoIsTrueOrderByIdDesc();
+//
+//        }else if(!descricao.isEmpty() && dataLcto.isEmpty()){
+//            return contasPagRecRepository.findALlByDescricaoContainsIgnoreCaseAndAtivoIsTrueOrderByIdDesc(descricao);
+//
+//        }else if(descricao.isEmpty() && !dataLcto.isEmpty()){
+//            return contasPagRecRepository.findALlByDataLctoAndAtivoIsTrueOrderByIdDesc(dataFormatada);
+//
+//        }else {
+//            return contasPagRecRepository.findALlByDescricaoContainsIgnoreCaseAndDataLctoAndAtivoIsTrueOrderByIdDesc(descricao, dataFormatada);
+//        }
+
     }
 
     private Date convertData(String data){

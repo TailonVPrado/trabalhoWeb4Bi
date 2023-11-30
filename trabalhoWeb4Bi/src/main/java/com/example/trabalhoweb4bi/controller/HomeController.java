@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("/")
 public class HomeController {
@@ -18,8 +20,12 @@ public class HomeController {
     @GetMapping
     public ModelAndView retornaHome() {
         ModelAndView modelAndView = new ModelAndView("index");
-        modelAndView.addObject("totalDespesa", contasPagRecService.retornaSomaContas(TipoConta.DESPESA));
-        modelAndView.addObject("totalReceita", contasPagRecService.retornaSomaContas(TipoConta.RECEITA));
+
+        BigDecimal totalDespesa = contasPagRecService.retornaSomaContas(TipoConta.DESPESA);
+        BigDecimal totalReceita =  contasPagRecService.retornaSomaContas(TipoConta.RECEITA);
+
+        modelAndView.addObject("totalDespesa", totalDespesa != null ? totalDespesa : 0);
+        modelAndView.addObject("totalReceita", totalReceita != null ? totalReceita : 0);
         modelAndView.addObject("ultimas10ContasLancadas", contasPagRecService.retornaUltimas10ContasLancadas());
 
         return modelAndView;

@@ -65,6 +65,32 @@
                                    name="dataLcto"
                                    readonly >
                             <br>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="tipoConta" class="form-label">Tipo da Conta</label>
+                                    <select id="tipoConta"
+                                            class="form-control"
+                                            name="tipoConta">
+                                        <option></option>
+                                        <option th:each="opcao : ${T(com.example.trabalhoweb4bi.enums.TipoConta).values()}"
+                                                th:value="${opcao}"
+                                                th:text="${opcao}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-6">
+                                    <label for="idCategoria" class="form-label">Categoria</label>
+                                    <select id="idCategoria" class="form-select" aria-label="Default select example" name="idCategoria">
+                                        <option value="0"></option>
+                                        <option th:each="categoria : ${categorias}"
+                                                th:value="${categoria.id}"
+                                                th:text="${categoria.descricao + ' - ' + categoria.tipoConta}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <br>
                             <button type="submit" class="btn btn-primary">Pesquisar</button>
                             <hr>
                         </div>

@@ -1,6 +1,7 @@
 package com.example.trabalhoweb4bi.controller;
 
 import com.example.trabalhoweb4bi.domain.Categoria;
+import com.example.trabalhoweb4bi.enums.TipoConta;
 import com.example.trabalhoweb4bi.service.CategoriaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,11 @@ public class CategoriaController {
 
     @GetMapping(path = "/filtrar")
     public String filtrarCategorias(@RequestParam("descricao") String descricao,
+                                    @RequestParam("tipoConta") String tipoConta,
                                      RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("categorias",
-                categoriaService.listByFilter(descricao));
-        System.out.println(categoriaService.listByFilter(descricao).size());
+                categoriaService.listByFilter(descricao, tipoConta));
+        System.out.println(categoriaService.listByFilter(descricao, tipoConta).size());
         return "redirect:/categoria";
     }
 

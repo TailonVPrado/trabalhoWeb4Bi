@@ -36,6 +36,8 @@ public class ContasPagRecController {
         else {
             modelAndView.addObject("contasPagRecs", contasPagRecService.listAll());
         }
+        modelAndView.addObject("categorias", categoriaService.listAll());
+
         System.out.println(contasPagRecService.listAll().size());
 
         return modelAndView;
@@ -45,9 +47,10 @@ public class ContasPagRecController {
     @GetMapping(path = "/filtrar")
     public String filtrarContasPagRec(@RequestParam("descricao") String descricao,
                                       @RequestParam("dataLcto") String dataLcto,
+                                      @RequestParam("tipoConta")String tipoConta,
+                                      @RequestParam("idCategoria") Long idCategoria,
                                       RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("contasPagRecs",
-                contasPagRecService.listByFilter(descricao, dataLcto));
+        redirectAttributes.addFlashAttribute("contasPagRecs", contasPagRecService.listByFilter(descricao, dataLcto, tipoConta, idCategoria));
         return "redirect:/contasPagRec";
     }
 
