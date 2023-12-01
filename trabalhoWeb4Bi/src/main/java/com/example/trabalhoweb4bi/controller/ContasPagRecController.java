@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,14 +77,20 @@ public class ContasPagRecController {
     @PostMapping
     public String salvarcontasPagRec(@Valid ContasPagRec contasPagRec,
                                      @RequestParam("idCategoria") Long idCategoria,
+                                     @RequestParam("valorMascarado") String valorMascarado,
                                      BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes){
-
 
         List<String> msg = new ArrayList<>();
         if(idCategoria > 0){
             contasPagRec.setCategoria(categoriaService.findById(idCategoria));
         }
+        if(valorMascarado.isEmpty()){
+            contasPagRec.setValor(BigDecimal.valueOf(0));
+        }else{
+            contasPagRec.setValor(new BigDecimal(valorMascarado.replace(",", ".")));
+        }
+
         msg.addAll(contasPagRecService.validate(contasPagRec));
 
         if (bindingResult.hasErrors() || !msg.isEmpty()) {

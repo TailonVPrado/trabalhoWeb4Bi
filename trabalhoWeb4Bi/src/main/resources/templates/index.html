@@ -43,7 +43,8 @@
                            th:class="${totalReceita - totalDespesa < 0} ? 'text-danger form-label fs-2 fw-bold' : 'text-success form-label fs-2 fw-bold'"
                     >LÍQUIDO</label>
                     <h1 id="liquido"
-                        th:text="${totalReceita - totalDespesa < 0} ? '- R$' + (${totalReceita - totalDespesa} * -1) : '+R$' + ${totalReceita - totalDespesa}"
+                        th:text="${totalReceita - totalDespesa < 0} ? '- R$' + (${(totalReceita - totalDespesa).toString().replace('.', ',')} * -1) :
+                                                                      '+ R$' + ${(totalReceita - totalDespesa).toString().replace('.', ',')}"
                         th:class="${totalReceita - totalDespesa < 0} ? 'text-bg-danger rounded border-primary text-dark' : 'text-bg-success rounded border-primary text-dark'">
                     </h1>
                 </div>
@@ -53,12 +54,12 @@
                 <div class="col-5 mx-2">
                     <label for="receita" class="form-label fs-2 text-primary fw-bold">RECEITAS</label>
                     <h1 id="receita" class="text-bg-primary rounded border-primary text-dark "
-                        th:text="'+ R$' + ${totalReceita}"></h1>
+                        th:text="'+ R$' + ${totalReceita.toString().replace('.', ',')}"></h1>
                 </div>
                 <div class="col-5 mx-2">
                     <label for="despesa" class="form-label fs-2 text-warning fw-bold">DESPESAS</label>
                     <h1 id="despesa" class="text-bg-warning rounded border-warning"
-                        th:text="'- R$' + ${totalDespesa}">Despesas</h1>
+                        th:text="'- R$' + ${totalDespesa.toString().replace('.', ',')}">Despesas</h1>
                 </div>
             </div>
         </div>
@@ -87,7 +88,7 @@
                 <tr th:each="contasPagRec : ${ultimas10ContasLancadas}">
                     <th th:text="${contasPagRec.id}" scope="row">id</th>
                     <td th:text="${contasPagRec.descricao}">descricao da conta</td>
-                    <td th:text="'R$'+${contasPagRec.valor}"
+                    <td th:text="'R$'+${contasPagRec.valor.toString().replace('.', ',')}"
                         th:style="${#strings.trim(contasPagRec.categoria.tipoConta)} == 'DESPESA' ? 'color: red; font-weight: bold;' : 'color: green; font-weight: bold;'"
                     >valor</td>
                     <td th:text="${contasPagRec.categoria.descricao}">Descrição da categoria</td>

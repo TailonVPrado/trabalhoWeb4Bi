@@ -71,7 +71,7 @@
                         <script>
                             // Aplica a máscara para aceitar apenas números
                             $(document).ready(function(){
-                                $('#valor').mask('00000000.00', {reverse: true});
+                                $('#valor').mask('00000000,00', {reverse: true});
                             });
                         </script>
                         <div class="mb-3">
@@ -79,7 +79,7 @@
                             <input id="valor"
                                    type="text"
                                    class="form-control"
-                                   name="valor"
+                                   name="valorMascarado"
                                    th:value="${contasPagRec.valor}">
                         </div>
                         <div class="mb-3">
