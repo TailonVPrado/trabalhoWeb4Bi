@@ -43,7 +43,7 @@ public class CategoriaController {
                                      RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("categorias",
                 categoriaService.listByFilter(descricao, tipoConta));
-        System.out.println(categoriaService.listByFilter(descricao, tipoConta).size());
+
         return "redirect:/categoria";
     }
 

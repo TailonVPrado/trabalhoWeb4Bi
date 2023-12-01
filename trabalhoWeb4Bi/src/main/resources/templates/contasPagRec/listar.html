@@ -124,7 +124,7 @@
                             <tr th:each="contasPagRec : ${contasPagRecs}">
                                 <th th:text="${contasPagRec.id}" scope="row">id</th>
                                 <td th:text="${contasPagRec.descricao}">descricao da conta</td>
-                                <td th:text="'R$'+${contasPagRec.valor.toString().replace('.', ',')}"
+                                <td th:text="'R$'+${#numbers.formatDecimal(contasPagRec.valor,0,'POINT',2,'COMMA')}"
                                     th:style="${#strings.trim(contasPagRec.categoria.tipoConta)} == 'DESPESA' ? 'color: red; font-weight: bold;' : 'color: green; font-weight: bold;'"
                                 >valor</td>
                                 <td th:text="${contasPagRec.categoria.descricao}">Descrição da categoria</td>

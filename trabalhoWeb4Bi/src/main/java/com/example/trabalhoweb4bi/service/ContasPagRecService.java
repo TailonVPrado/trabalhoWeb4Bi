@@ -117,10 +117,6 @@ public class ContasPagRecService {
     }
 
     public void insert(ContasPagRec contasPagRec){
-        if(contasPagRec.getId() != null){
-            //gambiarra para nao quebrar o update setando a dataLcto para null em update
-            contasPagRec.setDataLcto(findById(contasPagRec.getId()).getDataLcto());
-        }
         contasPagRecRepository.saveAndFlush(contasPagRec);
     }
 

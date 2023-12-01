@@ -23,11 +23,11 @@ public class ContasPagRec {
     private String descricao;
 
     @CreationTimestamp
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private Date dataLcto;
 
     @ManyToOne
-    @JoinColumn(nullable = false, updatable = false)
+    @JoinColumn(nullable = false)
     private Categoria categoria;
 
     @Column(nullable = false)

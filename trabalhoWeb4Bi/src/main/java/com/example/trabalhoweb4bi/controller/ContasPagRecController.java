@@ -39,8 +39,6 @@ public class ContasPagRecController {
         }
         modelAndView.addObject("categorias", categoriaService.listAll());
 
-        System.out.println(contasPagRecService.listAll().size());
-
         return modelAndView;
     }
 
@@ -70,7 +68,7 @@ public class ContasPagRecController {
         }
 
         modelAndView.addObject("categorias", categoriaService.listAll());
-        System.out.println(categoriaService.listAll().size());
+
         return modelAndView;
     }
 
